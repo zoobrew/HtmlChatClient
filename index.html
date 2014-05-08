@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
-<style>
-body
-{
-background-color:#b0c4de;
-}
-</style>
+<head>
+    <title>My first styled page</title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
 <body>
-    <p>Signed in as: <div align="right">
-    <button type="button">Sign out</button></div> </p>
-<h1>My second Heading</h1>
+    <p class="alignright">Username:
+        <button class="alignright" type="button">Sign out</button>
+    </p>
+    <div style="clear: both;"></div>
+    <textarea cols="70" rows="20">
+        This is where the user can enter text. If there's too much text, the textbox can develop scrollbars to accommodate the extra text...
+    </textarea>
 
-<p>My first paragraph.</p>
+    <form action="demo_form.asp">
+        Send Message: <input type="text" name="messageinput">
+        <input type="submit" value="Submit">
+    </form>
+    <br />
+    <form action="demo_form.asp">
+        BroadCast Message: <input type="text" name="messageinput">
+        <input type="submit" value="Broadcast">
+    </form>
 
 </body>
 </html>
