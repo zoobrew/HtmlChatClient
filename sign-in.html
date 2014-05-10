@@ -10,9 +10,31 @@
     <form style="text-align:center" action="demo_form.asp">
         LOGIN:
         <br />
-        <input type="text" placeholder=" Username" name="Username">
+        <input type="text" placeholder=" Username" name="username">
+
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+    var connection = new WebSocket('ws://example.org:12345/myapp');
+    connection.onopen = function(){
+       /*Send a small message to the console once the connection is established */
+       console.log('Connection open!');
+    }
+        /* Connection is refused or closed */
+        connection.onclose = function(){
+        console.log('Connection closed');
+    }
+
+    connection.onerror = function(error){
+       console.log('Error detected: ' + error);
+    }
+
+    connection.onmessage = function(e){
+       var server_message = e.data;
+       console.log(server_message);
+    }
+    connection.send('Hey server, whats up?');
 
 </body>
 </html>
