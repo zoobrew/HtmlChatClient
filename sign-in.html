@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Chat Client Login</title>
-    <h1 style="text-align:center">Login to the Chat room</h1>
+    <h1 style="text-align:center">Login to the Chat Server</h1>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
@@ -15,26 +15,43 @@
         <input type="submit" value="Submit">
     </form>
 
-    <script>
-    var connection = new WebSocket('ws://example.org:12345/myapp');
-    connection.onopen = function(){
-       /*Send a small message to the console once the connection is established */
-       console.log('Connection open!');
-    }
+    <script type="text/javascript">
+        window.onload = function() {
+
+        /*/ var form = document.getElementById('message-form');
+        var messageField = document.getElementById('message');
+        var messagesList = document.getElementById('messages');
+        var socketStatus = document.getElementById('status');
+        var closeBtn = document.getElementById('close');
+            */
+
+        // The rest of the code in this tutorial will go here...
+        };
+
+        var connection = new WebSocket('ws://127.0.0.1:8787');
+
+        connection.onopen = function(){
+            /*Send a small message to the console once the connection is established */
+            console.log('Connection open!');
+        }
+
         /* Connection is refused or closed */
         connection.onclose = function(){
-        console.log('Connection closed');
-    }
+            console.log('Connection closed');
+        }
 
-    connection.onerror = function(error){
-       console.log('Error detected: ' + error);
-    }
+        connection.onerror = function(error){
+            console.log('Error detected: ' + error);
+        }
 
-    connection.onmessage = function(e){
-       var server_message = e.data;
-       console.log(server_message);
-    }
-    connection.send('Hey server, whats up?');
+        connection.onmessage = function(e){
+            var server_message = e.data;
+           console.log(server_message);
+        }
+
+        //connection.send('Hey server, whats up?');
+
+    </script>
 
 </body>
 </html>
