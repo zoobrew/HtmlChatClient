@@ -9,9 +9,7 @@
         <button class="alignright" type="button">Sign out</button>
     </p>
     <div style="clear: both;"></div>
-    <textarea cols="70" rows="20" id="messagesbox">
-        This is where the user can enter text. If there's too much text, the textbox can develop scrollbars to accommodate the extra text...
-    </textarea>
+    <textarea cols="70" rows="20" id="messagesbox"></textarea>
     <textarea cols="20" rows="20">
     username1
     user2
@@ -22,32 +20,36 @@
         <br />
         <input type="text"  size="90" id="messageinput" required>
         <input type="submit" id='submitbroadcast' value="Broadcast">
-        <button type="button" id="updateusersbtn">Update Users</button>
+        <button type="button" id="updateusersbutton">Update Users</button>
     </form>
 
     <script type="text/javascript">
         var connection = new WebSocket('ws://127.0.0.1:8787');
         var username = window.location.search.split('=').pop().toLowerCase();
+        var form = document.getElementById('messageform');
+        var messagefield = document.getElementById('messageinput');
+        var broadcastBtn = document.getElementById('submitbroadcast');
+        var updateusersbtn = document.getElementById('updateusersbutton');
+        var messages = document.getElementById('messagesbox');
 
-        window.onload = function() {
+        form.onsubmit = function(e){
+            e.preventDefault();
+            //console.log("Logging in as: " + username.value.toLowerCase());
+            var message = messagefield.value;
+            connection.send("BROADCAST " + username + "\n" + message);
+            messages.innerHTML += username + ': ' + message + '\r\n';
+            messagefield.value = '';
+        }
 
-            var form = document.getElementById('messageform');
-            var messagefield = document.getElementById('messageinput');
-            var broadcastBtn = document.getElementById('submitbroadcast');
-            var messages = document.getElementById('messagesbox');
-        /*
-        var header = document.getElementById('header');
-        */
+        updateusersbtn.onclick = function(e){
+            e.preventDefault();
+            connection.send("WHO HERE " + username);
+            //connection.send("SEND " + username + "fred" + "\nthis is the message");
+        }
 
-            form.onsubmit = function(e){
-                e.preventDefault();
-                //console.log("Logging in as: " + username.value.toLowerCase());
-                var message = messagefield.value;
-                connection.send("BROADCAST " + username + "\r\n" + message);
-                messages.innerHTML += '<u>'+ username + '</u>: ' + message + '\r\n';
-                messagefield.value = '';
-            }
-        };
+        /*window.onload = function() {
+
+        };*/
 
         connection.onopen = function(){
             /*Send a small message to the console once the connection is established */
@@ -64,7 +66,8 @@
 
         connection.onmessage = function(e){
            var server_message = e.data;
-            console.log("MESSAGE: " + server_message);
+           console.log("MESSAGE: " + server_message);
+           messages.innerHTML += server_message + '\r\n';
         }
 
         /* Connection is refused or closed */
