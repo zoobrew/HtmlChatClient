@@ -24,5 +24,42 @@
         <input type="submit" value="Broadcast">
     </form>
 
+    <script type="text/javascript">
+        var connection = new WebSocket('ws://127.0.0.1:8787');
+        var username = localStorage.getItem("username");
+
+        window.onload = function() {
+
+        /*var form = document.getElementById('loginform');
+        var username = document.getElementById('usernamefield');
+        var submitBtn = document.getElementById('submitbutton');
+        var header = document.getElementById('header');
+        */
+        };
+
+        connection.onopen = function(){
+            /*Send a small message to the console once the connection is established */
+            console.log('Connection open!');
+            console.log("Username is: " + username);
+            connection.send("ME IS " + username);
+        }
+
+        connection.onerror = function(error){
+            alert("An error has occured");
+            console.log('Websocket error: ' + error);
+        }
+
+        connection.onmessage = function(e){
+           var server_message = e.data;
+            console.log("MESSAGE: " + server_message);
+        }
+
+        /* Connection is refused or closed */
+        connection.onclose = function(){
+            console.log('Connection closed');
+        }
+
+    </script>
+
 </body>
 </html>

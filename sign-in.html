@@ -7,10 +7,10 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
     <br /><br />
-    <form id="loginform" style="text-align:center" action="#" method="post">
+    <form id="loginform" style="text-align:center" action="/index.html" method="post">
         Login:
         <br />
-        <input type="text" placeholder=" Username" name="username" id="usernamefield">
+        <input type="text" placeholder=" Username" name="username" id="usernamefield" required>
 
         <button type="submit" id="submitbutton">Login</button>
     </form>
@@ -27,31 +27,11 @@
 
             form.onsubmit = function(e){
                 e.preventDefault();
-                console.log("Loggin in as: " + username.value.toLowerCase());
-                connection.send("ME IS " + username.value.toLowerCase());
+                console.log("Logging in as: " + username.value.toLowerCase());
+                localStorage.setItem("usernamevalue", username.value.toLowerCase());
+                window.open ('index.html','_self',false)
             }
         };
-        var connection = new WebSocket('ws://127.0.0.1:8787');
-
-        connection.onopen = function(){
-            /*Send a small message to the console once the connection is established */
-            console.log('Connection open!');
-        }
-
-        connection.onerror = function(error){
-            alert("An error has occured");
-            console.log('Websocket error: ' + error);
-        }
-
-        connection.onmessage = function(e){
-           var server_message = e.data;
-           console.log(server_message);
-        }
-
-        /* Connection is refused or closed */
-        connection.onclose = function(){
-            console.log('Connection closed');
-        }
 
         /*
         submitBtn.onclick = function(e) {
