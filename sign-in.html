@@ -10,7 +10,7 @@
     <form id="loginform" style="text-align:center" action="#" method="post">
         Login:
         <br />
-        <input type="text" placeholder=" Username" name="username">
+        <input type="text" placeholder=" Username" name="username" id="usernamefield">
 
         <button type="submit" id="submitbutton">Login</button>
     </form>
@@ -19,15 +19,16 @@
         window.onload = function() {
 
         var form = document.getElementById('loginform');
-        var username = document.getElementById('username');
+        var username = document.getElementById('usernamefield');
         var submitBtn = document.getElementById('submitbutton');
         var header = document.getElementById('header');
 
         // The rest of the code in this tutorial will go here...
 
-            submitBtn.onclick = function(e){
+            form.onsubmit = function(e){
                 e.preventDefault();
-                alert("Welcome !");
+                console.log("Loggin in as: " + username.value.toLowerCase());
+                connection.send("ME IS " + username.value.toLowerCase());
             }
         };
         var connection = new WebSocket('ws://127.0.0.1:8787');
@@ -38,6 +39,7 @@
         }
 
         connection.onerror = function(error){
+            alert("An error has occured");
             console.log('Websocket error: ' + error);
         }
 
@@ -45,8 +47,6 @@
            var server_message = e.data;
            console.log(server_message);
         }
-
-        //connection.send('Hey server, whats up?');
 
         /* Connection is refused or closed */
         connection.onclose = function(){
