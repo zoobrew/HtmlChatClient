@@ -2,32 +2,34 @@
 <html>
 <head>
     <title>Chat Client Login</title>
-    <h1 style="text-align:center">Login to the Chat Server</h1>
+    <h1 id="header">Login to the Chat Server</h1>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
     <br /><br />
-    <form style="text-align:center" action="demo_form.asp">
-        LOGIN:
+    <form id="loginform" style="text-align:center" action="#" method="post">
+        Login:
         <br />
         <input type="text" placeholder=" Username" name="username">
 
-        <input type="submit" value="Submit">
+        <button type="submit" id="submitbutton">Login</button>
     </form>
 
     <script type="text/javascript">
         window.onload = function() {
 
-        /*/ var form = document.getElementById('message-form');
-        var messageField = document.getElementById('message');
-        var messagesList = document.getElementById('messages');
-        var socketStatus = document.getElementById('status');
-        var closeBtn = document.getElementById('close');
-            */
+        var form = document.getElementById('loginform');
+        var username = document.getElementById('username');
+        var submitBtn = document.getElementById('submitbutton');
+        var header = document.getElementById('header');
 
         // The rest of the code in this tutorial will go here...
-        };
 
+            submitBtn.onclick = function(e){
+                e.preventDefault();
+                alert("Welcome !");
+            }
+        };
         var connection = new WebSocket('ws://127.0.0.1:8787');
 
         connection.onopen = function(){
@@ -35,21 +37,26 @@
             console.log('Connection open!');
         }
 
+        connection.onerror = function(error){
+            console.log('Websocket error: ' + error);
+        }
+
+        connection.onmessage = function(e){
+           var server_message = e.data;
+           console.log(server_message);
+        }
+
+        //connection.send('Hey server, whats up?');
+
         /* Connection is refused or closed */
         connection.onclose = function(){
             console.log('Connection closed');
         }
 
-        connection.onerror = function(error){
-            console.log('Error detected: ' + error);
-        }
-
-        connection.onmessage = function(e){
-            var server_message = e.data;
-           console.log(server_message);
-        }
-
-        //connection.send('Hey server, whats up?');
+        /*
+        submitBtn.onclick = function(e) {
+            alert("CLICKED")
+        }*/
 
     </script>
 

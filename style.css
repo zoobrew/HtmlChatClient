@@ -4,7 +4,11 @@
 .alignright {
 	float: right;
 }
+h1
+{
+  text-align:center
+}
 body
 {
-background-color:#b0c4de;
+  background-color:#b0c4de;
 }
