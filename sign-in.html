@@ -8,11 +8,12 @@
 <body>
     <br /><br />
     <form id="loginform" style="text-align:center"
-          action="/index.html" method="post">
+          action="index.html" method="get">
         Login:
         <br />
         <input type="text" placeholder=" Username"
-               name="username" id="usernamefield" required>
+               name="username" id="usernamefield"
+               autofocus required>
 
         <button type="submit" id="submitbutton">Login</button>
     </form>
@@ -27,10 +28,10 @@
         // The rest of the code in this tutorial will go here...
 
             form.onsubmit = function(e){
-                e.preventDefault();
+                //e.preventDefault();
                 console.log("Logging in as: " + username.value.toLowerCase());
-                localStorage.setItem("usernamevalue", username.value.toLowerCase());
-                window.open ('index.html','_self',false)
+                //localStorage.setItem("usernamevalue", username.value.toLowerCase());
+                window.open ('index.html','_self',true)
             }
         };
 

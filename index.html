@@ -27,7 +27,7 @@
 
     <script type="text/javascript">
         var connection = new WebSocket('ws://127.0.0.1:8787');
-        var username = localStorage.getItem("username");
+        var username = window.location.search.split('=').pop().toLowerCase();
 
         window.onload = function() {
 
@@ -44,7 +44,7 @@
                 //console.log("Logging in as: " + username.value.toLowerCase());
                 var message = messagefield.value;
                 connection.send("BROADCAST " + username + "\r\n" + message);
-                messages.innerHTML += username + ": " + message + "\r\n";
+                messages.innerHTML += '<u>'+ username + '</u>: ' + message + '\r\n';
                 messagefield.value = '';
             }
         };
@@ -53,6 +53,7 @@
             /*Send a small message to the console once the connection is established */
             console.log('Connection open!');
             console.log("Username is: " + username);
+            console.log();
             connection.send("ME IS " + username);
         }
 
