@@ -9,7 +9,7 @@
         <button class="alignright" type="button">Sign out</button>
     </p>
     <div style="clear: both;"></div>
-    <textarea cols="70" rows="20">
+    <textarea cols="70" rows="20" id="messagesbox">
         This is where the user can enter text. If there's too much text, the textbox can develop scrollbars to accommodate the extra text...
     </textarea>
     <textarea cols="20" rows="20">
@@ -17,11 +17,12 @@
     user2
     me
     </textarea>
-    <form action="demo_form.asp">
+    <form action="#" id="messageform">
         Broadcast Message:
         <br />
-        <input type="text"  size="90" name="messageinput">
-        <input type="submit" value="Broadcast">
+        <input type="text"  size="90" id="messageinput" required>
+        <input type="submit" id='submitbroadcast' value="Broadcast">
+        <button type="button" id="updateusersbtn">Update Users</button>
     </form>
 
     <script type="text/javascript">
@@ -30,11 +31,22 @@
 
         window.onload = function() {
 
-        /*var form = document.getElementById('loginform');
-        var username = document.getElementById('usernamefield');
-        var submitBtn = document.getElementById('submitbutton');
+            var form = document.getElementById('messageform');
+            var messagefield = document.getElementById('messageinput');
+            var broadcastBtn = document.getElementById('submitbroadcast');
+            var messages = document.getElementById('messagesbox');
+        /*
         var header = document.getElementById('header');
         */
+
+            form.onsubmit = function(e){
+                e.preventDefault();
+                //console.log("Logging in as: " + username.value.toLowerCase());
+                var message = messagefield.value;
+                connection.send("BROADCAST " + username + "\r\n" + message);
+                messages.innerHTML += username + ": " + message + "\r\n";
+                messagefield.value = '';
+            }
         };
 
         connection.onopen = function(){

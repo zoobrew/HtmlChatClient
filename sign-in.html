@@ -7,10 +7,12 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
     <br /><br />
-    <form id="loginform" style="text-align:center" action="/index.html" method="post">
+    <form id="loginform" style="text-align:center"
+          action="/index.html" method="post">
         Login:
         <br />
-        <input type="text" placeholder=" Username" name="username" id="usernamefield" required>
+        <input type="text" placeholder=" Username"
+               name="username" id="usernamefield" required>
 
         <button type="submit" id="submitbutton">Login</button>
     </form>
@@ -21,7 +23,6 @@
         var form = document.getElementById('loginform');
         var username = document.getElementById('usernamefield');
         var submitBtn = document.getElementById('submitbutton');
-        var header = document.getElementById('header');
 
         // The rest of the code in this tutorial will go here...
 
