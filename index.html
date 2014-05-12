@@ -38,8 +38,6 @@
             var message = messagefield.value;
             //connection.send("BROADCAST " + username + "\n" + message);
             connection.send("BROADCAST \n" +  message);
-            messages.innerHTML += username + ': ' + message + '\r\n';
-            //connection.send(message);
             messagefield.value = '';
         }
 
@@ -68,8 +66,15 @@
 
         connection.onmessage = function(e){
            var server_message = e.data;
-           console.log("MESSAGE: " + server_message);
-           messages.innerHTML += server_message + '\r\n';
+           if (server_message.substring(0, 14) == "BROADCAST FROM"){
+               var n = server_message.substring(15).indexOf("\n");
+               //console.log("TESTING #" + server_message.substring(n+16));
+               messages.innerHTML += server_message.substring(15, n+14) + ': '+ server_message.substring(n+16) + '\r\n';
+               //console.log("Broadcast: " + server_message.substring(n));
+           } else {
+               console.log("MESSAGE: " + server_message);
+               messages.innerHTML += server_message + '\r\n';
+           }
         }
 
         /* Connection is refused or closed */
