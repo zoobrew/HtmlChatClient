@@ -10,11 +10,7 @@
     </p>
     <div style="clear: both;"></div>
     <textarea cols="70" rows="20" id="messagesbox"></textarea>
-    <textarea cols="20" rows="20">
-    username1
-    user2
-    me
-    </textarea>
+    <textarea cols="20" rows="20" id="usersbox"></textarea>
     <form action="#" id="messageform">
         Broadcast Message:
         <br />
@@ -31,6 +27,7 @@
         var broadcastBtn = document.getElementById('submitbroadcast');
         var updateusersbtn = document.getElementById('updateusersbutton');
         var messages = document.getElementById('messagesbox');
+        var users = document.getElementById('usersbox');
 
         form.onsubmit = function(e){
             e.preventDefault();
@@ -73,7 +70,7 @@
                //console.log("Broadcast: " + server_message.substring(n));
            } else {
                console.log("MESSAGE: " + server_message);
-               messages.innerHTML += server_message + '\r\n';
+               users.innerHTML = server_message + '\r\n';
            }
         }
 
