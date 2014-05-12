@@ -12,3 +12,11 @@ body
 {
   background-color:#b0c4de;
 }
+ul
+{
+  width: 5em;
+  color: #000;
+  background-color: #fff;
+  text-decoration: none;
+  border-right: 1px solid #fff;
+}

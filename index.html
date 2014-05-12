@@ -10,12 +10,14 @@
     Username:
     </p>
     <div style="clear: both;"></div>
-    <textarea cols="70" rows="20" id="messagesbox"></textarea>
-    <textarea cols="20" rows="20" id="usersbox"></textarea>
+    <h3>User list</h3>
+    <textarea cols="50" rows="1" id="usersbox"></textarea>
+    <h3>Messages</h3>
+    <ul id="messagesbox"></ul>
     <form action="#" id="messageform">
         Broadcast Message:
         <br />
-        <input type="text"  size="90" id="messageinput" required>
+        <input type="text"  size="50" id="messageinput" required>
         <input type="submit" id='submitbroadcast' value="Broadcast">
         <button type="button" id="updateusersbutton">Update Users</button>
     </form>
@@ -34,9 +36,7 @@
 
         form.onsubmit = function(e){
             e.preventDefault();
-            //console.log("Logging in as: " + username.value.toLowerCase());
             var message = messagefield.value;
-            //connection.send("BROADCAST " + username + "\n" + message);
             connection.send("BROADCAST \n" +  message);
             messagefield.value = '';
         }
@@ -48,7 +48,7 @@
         }
 
         function logout(e){
-            console.log("LOGOUT");
+            console.log("LOGGED OUT");
             connection.send("LOGOUT " + username);
             window.open ('sign-in.html','_self',true)
         }
@@ -58,7 +58,6 @@
         };
 
         connection.onopen = function(){
-            /*Send a small message to the console once the connection is established */
             console.log('Connection open!');
             console.log("Username is: " + username);
             console.log();
@@ -74,9 +73,9 @@
            var server_message = e.data;
            if (server_message.substring(0, 14) == "BROADCAST FROM"){
                var n = server_message.substring(15).indexOf("\n");
-               //console.log("TESTING #" + server_message.substring(n+16));
-               messages.innerHTML += server_message.substring(15, n+14) + ': '+ server_message.substring(n+16) + '\r\n';
-               //console.log("Broadcast: " + server_message.substring(n));
+               messages.innerHTML += "<li><a href='privatemessage.html' target='_blank'>" + server_message.substring(15, n+14)+ '</a>: ' + server_message.substring(n+16) + '</li>';
+           } else if (server_message.indexOf("OK") > -1){
+               console.log("OK");
            } else {
                console.log("MESSAGE: " + server_message);
                users.innerHTML = server_message + '\r\n';
