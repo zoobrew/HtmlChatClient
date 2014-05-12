@@ -9,14 +9,8 @@
         <button class="alignright" type="button">Sign out</button>
     </p>
     <div style="clear: both;"></div>
-    <textarea cols="70" rows="20">
-        This is where the user can enter text. If there's too much text, the textbox can develop scrollbars to accommodate the extra text...
-    </textarea>
-    <textarea cols="20" rows="20">
-username1
-user2
-me
-    </textarea>
+    <h3>Messages</h3>
+    <textarea cols="70" rows="20"></textarea>
 
     <form action="demo_form.asp">
         Send Message:
@@ -24,13 +18,9 @@ me
         <input type="text" name="messageinput">
         <input type="submit" value="Submit">
     </form>
-    <br />
-    <form action="demo_form.asp">
-        Broadcast Message:
-        <br />
-        <input type="text" name="messageinput">
-        <input type="submit" value="Broadcast">
-    </form>
+    <script type="text/javascript">
+        var connection = new WebSocket('ws://127.0.0.1:8787');
+        var username = window.location.search.split('=').pop().toLowerCase();
 
 </body>
 </html>
