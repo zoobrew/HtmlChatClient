@@ -5,7 +5,8 @@
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
-    <p class="alignright" id="displayname"><button class="alignright" type="button">Sign out</button><br />
+    <p class="alignright" id="displayname"><button class="alignright"
+                                                   type="button" id="logoutbutton" onclick="logout()">Sign out</button><br />
     Username:
     </p>
     <div style="clear: both;"></div>
@@ -29,6 +30,7 @@
         var messages = document.getElementById('messagesbox');
         var users = document.getElementById('usersbox');
         var usernametext = document.getElementById('displayname');
+        var logoutbtn = document.getElementById('logoutbutton');
 
         form.onsubmit = function(e){
             e.preventDefault();
@@ -43,6 +45,12 @@
             e.preventDefault();
             connection.send("WHO HERE " + username);
             //connection.send("SEND " + username + "fred" + "\nthis is the message");
+        }
+
+        function logout(e){
+            console.log("LOGOUT");
+            connection.send("LOGOUT " + username);
+            window.open ('sign-in.html','_self',true)
         }
 
         window.onload = function() {
