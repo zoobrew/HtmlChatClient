@@ -36,8 +36,10 @@
             e.preventDefault();
             //console.log("Logging in as: " + username.value.toLowerCase());
             var message = messagefield.value;
-            connection.send("BROADCAST " + username + "\n" + message);
+            //connection.send("BROADCAST " + username + "\n" + message);
+            connection.send("BROADCAST \n" +  message);
             messages.innerHTML += username + ': ' + message + '\r\n';
+            //connection.send(message);
             messagefield.value = '';
         }
 
