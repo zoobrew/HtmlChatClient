@@ -5,22 +5,40 @@
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <body>
-    <p class="alignright">Username:
-        <button class="alignright" type="button">Sign out</button>
-    </p>
+    <p class="alignright"  id="displayname">Username: </p>
     <div style="clear: both;"></div>
     <h3>Messages</h3>
     <textarea cols="70" rows="20"></textarea>
 
-    <form action="demo_form.asp">
+    <form action="#" id="messageform">
         Send Message:
         <br />
-        <input type="text" name="messageinput">
-        <input type="submit" value="Submit">
+        <input type="text" name="messageinput" id="messageinput">
+        <input type="submit" id='submitbutton' value="Submit">
     </form>
     <script type="text/javascript">
         var connection = new WebSocket('ws://127.0.0.1:8787');
-        var username = window.location.search.split('=').pop().toLowerCase();
+        var contact = window.location.search.split('=').pop().toLowerCase();
+        var index1 = window.location.search.indexOf("=");
+        var index2 = window.location.search.indexOf("&");
+        var username = window.location.search.substring(index1+1, index2);
+        var usernametext = document.getElementById('displayname');
+        var sendBtn = document.getElementById('submitbutton');
+        var form = document.getElementById('messageform');
+        var messagefield = document.getElementById('messageinput');
 
+        window.onload = function() {
+            usernametext.innerHTML += username;
+        };
+
+        form.onsubmit = function(e){
+            console.log("SUBMIT");
+            e.preventDefault();
+            var message = messagefield.value;
+            console.log("Message: " + message);
+            connection.send("SEND " + username + " " + contact + "\n" + message);
+            messagefield.value = '';
+        }
+    </script>
 </body>
 </html>

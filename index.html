@@ -55,7 +55,6 @@
 
         window.onload = function() {
             usernametext.innerHTML += username;
-            document.links["link"].href += myvariable;
         };
 
         connection.onopen = function(){
@@ -75,7 +74,7 @@
            if (server_message.substring(0, 14) == "BROADCAST FROM"){
                var n = server_message.substring(15).indexOf("\n");
                messages.innerHTML += "<li><a id='privatelink' href='privatemessage.html' + username target='_blank'>" + server_message.substring(15, n+14)+ '</a>: ' + server_message.substring(n+16) + '</li>';
-               document.links["privatelink"].href += '?username=' + username + '&contact='+ server_message.substring(15, n+14);
+               document.links["privatelink"].href = 'privatemessage.html?username=' + username + '&contact='+ server_message.substring(15, n+14);
            } else if (server_message.indexOf("OK") > -1){
                console.log("OK");
            } else {
